@@ -1,0 +1,36 @@
+plugins {
+	id 'java'
+	id 'org.springframework.boot' version '4.0.2'
+	id 'io.spring.dependency-management' version '1.1.7'
+}
+
+group = 'com.kafkaTest'
+version = '0.0.1-SNAPSHOT'
+description = 'Producer for generate events to Kafka to be stored in a test topic'
+
+java {
+	toolchain {
+		languageVersion = JavaLanguageVersion.of(21)
+	}
+}
+
+repositories {
+	mavenCentral()
+}
+
+dependencies {
+	implementation 'org.springframework.boot:spring-boot-starter-kafka'
+	testImplementation 'org.springframework.boot:spring-boot-starter-kafka-test'
+	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+
+    // Source: https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-web
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+
+    // Source: https://mvnrepository.com/artifact/tools.jackson.core/jackson-databind
+    implementation("com.fasterxml.jackson.core:jackson-databind")
+
+}
+
+tasks.named('test') {
+	useJUnitPlatform()
+}

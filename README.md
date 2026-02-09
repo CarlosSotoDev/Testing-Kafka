@@ -75,6 +75,17 @@ ls /opt/kafka/bin
 /opt/kafka/bin/kafka-topics.sh --delete --topic demo.events --bootstrap-server localhost:9092
 ```
 
+**6. Verificar Consumidores en kafka**
+````bash
+/opt/kafka/bin/kafka-console-consumer.sh \
+  --bootstrap-server localhost:9092 \
+  --topic demo.events \
+  --from-beginning \
+  --property print.key=true \
+  --property key.separator=" | " \
+  --property print.timestamp=true
+```
+
 **6. Salir del Contenedor**
 ```bash
 exit

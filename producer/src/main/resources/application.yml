@@ -1,0 +1,43 @@
+spring:
+  application:
+    # Nombre del microservicio (útil para logs, tracing, actuator, etc.)
+    name: producer
+
+  kafka:
+    # Dirección del broker Kafka (tu contenedor expone 9092)
+    bootstrap-servers: localhost:9092
+
+    producer:
+      # Nivel de confirmación del broker:
+      # all = espera confirmación de todas las réplicas (más seguro)
+      acks: all
+
+      # Número de reintentos si el envío falla
+      retries: 3
+
+      properties:
+        # Tiempo (ms) que Kafka espera para agrupar mensajes
+        # Pequeño delay para optimizar rendimiento
+        linger.ms: 5
+
+        # Evita duplicados si hay reintentos
+        # Recomendado para producers confiables
+        enable.idempotence: true
+
+      # Serializador de la clave del mensaje (normalmente String)
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+
+      # Serializador del valor del mensaje
+      # Convierte automáticamente objetos Java a JSON
+      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
+
+    properties:
+      # Evita que Spring agregue headers con el tipo Java del objeto
+      # Muy recomendado cuando tienes consumidores en otros lenguajes
+      spring.json.add.type.headers: false
+
+# Propiedades propias de la aplicación (no de Spring)
+app:
+  kafka:
+    # Nombre del tópico Kafka ya creado en Docker
+    topic: demo.events
