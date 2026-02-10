@@ -76,7 +76,7 @@ ls /opt/kafka/bin
 ```
 
 **6. Verificar Consumidores en kafka**
-````bash
+```bash
 /opt/kafka/bin/kafka-console-consumer.sh \
   --bootstrap-server localhost:9092 \
   --topic demo.events \
@@ -86,12 +86,31 @@ ls /opt/kafka/bin
   --property print.timestamp=true
 ```
 
-**6. Salir del Contenedor**
+*Comando directo para copiar en consola:*
+```bash
+/opt/kafka/bin/kafka-console-consumer.sh --bootstrap-server localhost:9092 --topic demo.events --from-beginning --property print.key=true --property key.separator=" | " --property print.timestamp=true
+```
+
+**7. Salir del Contenedor**
 ```bash
 exit
 ```
 
+## Verificar Mensajes, Consumer Groups y Lag
 
+**1. Ver mensajes + key + offset + partition**
+```bash
+/opt/kafka/bin/kafka-console-consumer.sh --bootstrap-server localhost:9092 --topic demo.events --from-beginning --property print.offset=true --property print.partition=true --property print.key=true --property key.separator=" | "
+```
+
+**2. Ver consumer groups existentes**
+```bash
+/opt/kafka/bin/kafka-consumer-groups.sh --bootstrap-server localhost:9092 --list
+```
+**3. Ver detalle de un consumer group (offset, lag, partition)**
+```bash
+/opt/kafka/bin/kafka-consumer-groups.sh --bootstrap-server localhost:9092 --describe --group NOMBRE_DEL_GROUP
+```
 
 ## Producer
 
