@@ -1,0 +1,21 @@
+server:
+  port: 8082
+
+spring:
+  application:
+    name: subscriberPartition1
+
+  kafka:
+    bootstrap-servers: localhost:9092
+
+    consumer:
+      group-id: demo-consumer-partition-1
+      client-id: demo-consumer-p1
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      auto-offset-reset: earliest
+      enable-auto-commit: true
+logging:
+  level:
+    org.springframework.kafka: INFO
+    org.apache.kafka: WARN
