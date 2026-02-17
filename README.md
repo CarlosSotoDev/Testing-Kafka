@@ -1,6 +1,8 @@
 # Programa Básico practica Kafka, Consumer, Producers y Creación de Topico
 
-Este proyecto demuestra una arquitectura event-driven utilizando Apache Kafka, donde se simula un flujo completo de eventos desde su producción hasta su consumo. El objetivo principal es entender cómo se crean y administran tópicos, cómo los productores publican eventos y cómo múltiples consumidores procesan esos mensajes de forma independiente.
+Este proyecto demuestra una arquitectura Event-Driven resiliente utilizando Apache Kafka, donde se simula un flujo completo de eventos desde su producción hasta su consumo. El objetivo principal es entender cómo se crean y administran tópicos, cómo los productores publican eventos y cómo múltiples consumidores procesan esos mensajes de forma independiente, ademas de inlcuir una estrategia completa de manejo de errores conocida como **Dead Letter Strategy**, es clave en sistemas distribuidos donde la resiliencia y el control de errores son fundamentales.
+
+![Dead Letter Strategy](assets/img/DeadLetterStrategyArquitecture.webp)
 
 ## Creación de Tópicos en Kafka
 
@@ -111,6 +113,13 @@ exit
 ```bash
 /opt/kafka/bin/kafka-consumer-groups.sh --bootstrap-server localhost:9092 --describe --group NOMBRE_DEL_GROUP
 ```
+
+## Dead Letter Strategy
+Dead Letter Strategy es una estrategia de arquitectura utilizada en sistemas event-driven para gestionar mensajes que fallan durante su procesamiento, separándolos del flujo principal mediante tópicos especializados como retry, dead letter (DLQ) y parking lot.
+
+Su objetivo es permitir reintentos controlados, aislar errores, evitar bloqueos del sistema y proporcionar mecanismos para recuperación automática o análisis manual, garantizando así la resiliencia y estabilidad del sistema.
+
+![Error Topcis](assets/img/ErrorTopics.webp)
 
 ## Producer
 
