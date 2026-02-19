@@ -1,0 +1,20 @@
+services:
+  postgres:
+    image: postgres:16
+    container_name: kafka-postgres
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: kafka_user
+      POSTGRES_PASSWORD: kafka_pass
+      POSTGRES_DB: kafka_events_db
+    volumes:
+      # Persistencia real
+      - pgdata:/var/lib/postgresql/data
+      
+      # Scripts de inicialización automática
+      - ./initdb:/docker-entrypoint-initdb.d
+    restart: unless-stopped
+
+volumes:
+  pgdata:
